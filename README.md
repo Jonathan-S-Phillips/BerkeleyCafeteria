@@ -1,7 +1,7 @@
 # BerkeleyCafeteria
 Online cafeteria ordering and POS system
 
-This is a simple online cafeteria ordering and POS system for a university that I created over the weekend. Registered students can log in and place orders using the available stores, and select a time for when they want to pick up their order during checkout. They can also review past orders, and use the items from these past orders in new orders as well. The Cashier user has a simlpe POS system to mark pending orders as "Picked Up" or "Missed" in addition to being able to place orders as well.
+This is a simple online cafeteria ordering and POS system for a university that I created over the weekend. Registered students can log in and place orders using the available stores, and select a time for when they want to pick up their order during checkout. They can also review past orders, and use the items from these past orders in new orders as well. The Cashier user has a simlpe POS system to mark pending orders as "Picked Up" or "Missed" in addition to being able to place orders as well. 
 
 # Demo
 A demo of the application is available <a href="http://ec2-52-11-74-160.us-west-2.compute.amazonaws.com/" target="_blank">here</a>.
@@ -21,3 +21,7 @@ The code was written using the Groovy/Grails Framework, JavaScript (jQuery and B
 # Building the Application Yourself
 
 If you want to build your own WAR file you must have Groovy configured on your system. Building your own WAR file allows you to configure your own options in the DataSource.groovy file for connecting to your own database.
+
+# Browser Compatibility
+
+The application has been tested in Chrome, Firefox, IE, and Safari. The application has also been tested and is working with an iPad and Windows Surface 3.
