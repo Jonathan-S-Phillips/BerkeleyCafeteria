@@ -16,7 +16,7 @@ Cashier Password: money1234
 
 # Application Source Code
 
-The code was writtin using the Groovy/Grails Framework, JavaScript (jQuery and Bootstrap), AJAX, and MySQL. A WAR file is included in the /target directory of the source code which can be deployed in tomcat. If you use the pre-built WAR file you need to have a MySQL database instance running on your localhost which has a root user without a password with an existing schema called "berkeleycafeteria". The schema can be empty, as the code is configured to automatically generate the schema if it doesn't exist, and add in some data to get you started. *NOTE This is not mean to be a production level system. There are certain things that I did not do like hashing of passwords, which should be done in production systems.
+The code was written using the Groovy/Grails Framework, JavaScript (jQuery and Bootstrap), AJAX, and MySQL. A WAR file is included in the /target directory of the source code which can be deployed in tomcat. If you use the pre-built WAR file you need to have a MySQL database instance running on your localhost which has a root user without a password with an existing schema called "berkeleycafeteria". The schema can be empty, as the code is configured to automatically generate the schema if it doesn't exist, and add in some data to get you started. *NOTE This is not mean to be a production level system. There are certain things that I did not do like hashing of passwords, which should be done in production systems.
 
 # Building the Application Yourself
 
