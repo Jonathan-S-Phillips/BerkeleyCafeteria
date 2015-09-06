@@ -24,4 +24,4 @@ If you want to build your own WAR file you must have Groovy configured on your s
 
 # Browser Compatibility
 
-The application has been tested in Chrome, Firefox, IE, and Safari. The application has also been tested and is working with an iPad and Windows Surface 3.
+The application has been tested in Chrome, Firefox, IE, and Safari. The application has also been tested and is working with an iPad and Windows Surface.
