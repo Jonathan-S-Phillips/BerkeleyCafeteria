@@ -15,7 +15,7 @@ class User {
 	
 	//---Field Definitions--------------------------------------------------------
 	
-	/* The name of that the User uses to log in to the application. */
+	/* The name that the User uses to log in to the application. */
 	String name
 	/* The password for the User to log into the application. */
 	String password
