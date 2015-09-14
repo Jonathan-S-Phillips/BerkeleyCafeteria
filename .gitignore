@@ -1,0 +1,11 @@
+#################
+## Eclipse
+#################
+
+.project
+.metadata
+.classpath
+.settings/
+*.class
+Application/target-eclipse/**/*.*
+Application/target/**/*.*
