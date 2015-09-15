@@ -20,7 +20,7 @@ The code was written using the Groovy/Grails Framework, JavaScript (jQuery and B
 
 # Building the Application Yourself
 
-If you want to build your own WAR file you must have Groovy configured on your system. Building your own WAR file allows you to configure your own options in the DataSource.groovy file for connecting to your own database.
+If you want to build your own WAR file you must have Java (version 1.8), Groovy (2.3), and Grails (2.4.4) configured on your system. You can import the project into the Groovy Grails Tool Suite using the Import Grails Project and selecting the route to the Application directory as the Location of the Grails Project. Building your own WAR file allows you to configure your own options in the DataSource.groovy file for connecting to your own database.
 
 # Browser Compatibility
 
