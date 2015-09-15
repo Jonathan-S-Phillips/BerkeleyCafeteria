@@ -16,11 +16,11 @@ Cashier Password: money1234
 
 # Application Source Code
 
-The code was written using the Groovy/Grails Framework, JavaScript (jQuery and Bootstrap), AJAX, and MySQL. A WAR file is included in the /target directory of the source code which can be deployed in tomcat. If you use the pre-built WAR file you need to have a MySQL database instance running on your localhost which has a root user without a password with an existing schema called "berkeleycafeteria". The schema can be empty, as the code is configured to automatically generate the schema if it doesn't exist, and add in some data to get you started. *NOTE This is only meant for demo purposes and not intended for use on a production level system. There are certain things that I did not do due to time constraints, like hashing passwords.
+The code was written using the Groovy/Grails Framework, JavaScript (jQuery and Bootstrap), AJAX, and MySQL.
 
 # Building the Application Yourself
 
-If you want to build your own WAR file you must have Java (version 1.8), Groovy (2.3), and Grails (2.4.4) configured on your system. You can import the project into the Groovy Grails Tool Suite using the Import Grails Project and selecting the route to the Application directory as the Location of the Grails Project. Building your own WAR file allows you to configure your own options in the DataSource.groovy file for connecting to your own database.
+If you want to build your own WAR file you must have Java (version 1.8), Groovy (2.3), and Grails (2.4.4) configured on your system. You can import the project into the Groovy Grails Tool Suite using the Import Grails Project and selecting the route to the Application directory as the Location of the Grails Project. Building your own WAR file allows you to configure your own options in the DataSource.groovy file for connecting to your own database. You will need to create a schema matching the name defined in DataSource.groovy. The schema can be empty, as the code is configured to automatically generate the tables if they do not exist, and add in some data (including users, stores, and items) to get you started. *NOTE This is only meant for demo purposes and not intended for use on a production level system. There are certain things that I did not do due to time constraints, like hashing passwords.
 
 # Browser Compatibility
 
