@@ -24,4 +24,4 @@ If you want to build your own WAR file you must have Java (version 1.8), Groovy 
 
 # Browser Compatibility
 
-The application has been tested in Chrome, Firefox, IE, and Safari. The application has also been tested and is working with an iPad and Windows Surface.
+The application has been tested in Chrome, Firefox, IE, and Safari, iPad and Windows Surface. The application will render on mobile phones, but the Login menu item in the top right corner does not render. I will update that if I have time, but if you really want to test the application on a mobile phone, you can manually type in /login at the end of the URL and you will be able to log in and have access to order food and manage the POS system (as the cashier).
