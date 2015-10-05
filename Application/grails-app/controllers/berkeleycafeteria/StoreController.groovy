@@ -161,12 +161,20 @@ class StoreController {
 	def updateQuantity() {
 		User user = User.get(session.userId)
 		if(user) {
+			int quantity = Integer.parseInt(params.quantity)
 			CafeteriaOrder order = CafeteriaOrder.findByUserAndIsComplete(user, false)
 			MenuItem menuItem = MenuItem.get(params.menuItemId)
-			cafeteriaOrderService.updateMenuItemQuantity(order, menuItem, Integer.parseInt(params.quantity))
+			cafeteriaOrderService.updateMenuItemQuantity(order, menuItem, quantity) 
 			session.cartItems = order.countMenuItems()
-			flash.success = menuItem.name + " quantity updated successfully"
-			redirect(action:"displayCart")
+			
+			def builder = new JsonBuilder()	
+			def root = builder.cartInfo {
+				totalPrice order.price()
+				cartItems session.cartItems
+				menuItemPrice menuItem.price * quantity
+				menuItemName menuItem.name
+			}
+			render(text:builder.toPrettyString(), contentType:"application/json", encoding: "UTF-8")
 		}
 		else {
 			flash.error = "Please log in to update an item's quantity in your shopping cart."

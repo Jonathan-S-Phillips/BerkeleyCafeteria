@@ -5,7 +5,7 @@
 	<div class="media-body">
 		<h4 class="media-heading">
 			${menuItem.name}
-			<small class="pull-right">
+			<small id="menuItemPrice_${menuItem.id}" class="pull-right">
 				<g:formatNumber number="${menuItem.price * quantity}" type="currency" currencyCode="USD"/>
 			</small>
 		</h4>

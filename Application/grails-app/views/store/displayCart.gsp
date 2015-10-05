@@ -8,10 +8,11 @@
 		<link rel="stylesheet" href="${resource(dir: 'js/js-lib/jQuery/pickadate', file: 'default.time.css')}" type="text/css">
 		<g:javascript src="js-lib/jQuery/jquery-ui-1.11.0.js"/>
 		<g:javascript src="js-lib/jQuery/jquery.blockUI.js"/>
-		<g:javascript src="js-lib/date.js"/>
 		<g:javascript src="js-lib/jQuery/pickadate/picker.js"/>
 		<g:javascript src="js-lib/jQuery/pickadate/picker.date.js"/>
 		<g:javascript src="js-lib/jQuery/pickadate/picker.time.js"/>
+		<g:javascript src="js-lib/accounting.min.js"/>
+		<g:javascript src="js-lib/date.js"/>
 		<g:javascript src="store/store.js"/>
 	</head>
 	<body>

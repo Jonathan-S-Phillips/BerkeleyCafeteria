@@ -1,6 +1,6 @@
 <div class="panel-heading">
 	<div class="pull-left">
-		<h4>
+		<h4 id="totalTop">
 			${order.countMenuItems()} Item(s) in your shopping cart: 
 			<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>
 		</h4>
@@ -20,8 +20,10 @@
 </div>
 <div class="panel-footer">
 	<div class="pull-right">
-		Grand Total:
-		<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>
+		<div id="total">
+			Grand Total:
+			<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>
+		</div>
 	</div>
 	<div class="clearfix"></div>
 </div>

@@ -42,18 +42,35 @@ function quantityChange(input, menuItemId) {
 		$("#error").html("<p class='alert alert-danger' role='alert'>Quantity values must be 1 or greater. If you want to remove an item from your cart, then click the corresponding 'Remove from My Cart' button.</p>");
 	}
 	else {
-		// Update the quantity in the shopping cart and reload the page data if successful.
-		jQuery.post(contextPath + "/store/updateQuantity", {
+		// Update the quantity in the shopping cart and values on the page if successful.
+		jQuery.ajax({
+			url: contextPath + "/store/updateQuantity",
+		    type: 'POST',
+		    data: {
 				menuItemId:menuItemId, 
 				quantity:input.value
 			},
-			function(result) {
-				var newDocument = document.open("text/html", "replace");
-				newDocument.write(result);
-				newDocument.close();
-			}
-		);
+		    success: function (data) { 
+		    	var cartInfo = data.cartInfo;
+		    	updateCartItems(cartInfo, menuItemId);
+		    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+		    	someErrorFunction(); 
+		    }
+		});
 	}
+}
+
+function updateCartItems(cartInfo, menuItemId) {
+	updateTotals(cartInfo.cartItems, accounting.formatMoney(cartInfo.totalPrice));
+	$("#menuItemPrice_" + menuItemId).html(accounting.formatMoney(cartInfo.menuItemPrice));
+	$("#cartItems").html(cartInfo.cartItems);
+	$("#success").html(cartInfo.menuItemName + " quantity updated successfully");
+}
+
+function updateTotals(cartItems, total) {
+	$("#totalTop").html(cartItems + " Item(s) in your shopping cart: " + total);
+	$("#total").html("Grand Total: " + total);
 }
 
 /**

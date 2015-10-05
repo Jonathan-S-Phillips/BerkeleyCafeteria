@@ -1,7 +1,7 @@
 <li>
 	<g:link controller="store" action="displayCart">
 		Shopping Cart 
-		<span class="badge">${session.cartItems}</span>
+		<span id="cartItems" class="badge">${session.cartItems}</span>
 	</g:link>
 </li>
 <li id="userMenu" class="dropdown">
