@@ -78,7 +78,7 @@ function updateTotals(cartItems, total) {
  * @returns {Boolean}
  */
 function validateDateAndTime() {
-	if($("#date").val() != "" && $("#time").val() != "") {
+	if(isDateStringValid($("#date").val()) && isTimeStringValid($("#time").val())) {
 		return true;
 	}
 	else {

@@ -13,6 +13,7 @@
 		<g:javascript src="js-lib/jQuery/pickadate/picker.time.js"/>
 		<g:javascript src="js-lib/accounting.min.js"/>
 		<g:javascript src="js-lib/date.js"/>
+		<g:javascript src="js-lib/validation.js"/>
 		<g:javascript src="store/store.js"/>
 	</head>
 	<body>
