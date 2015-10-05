@@ -4,7 +4,7 @@
 	</td>
 	<td>${student.name}</td>
 	<td>
-		<applicationTag:listMenuItems order="${order}"/>
+		<orderTag:listMenuItems order="${order}"/>
 	</td>
 	<td>
 		<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>

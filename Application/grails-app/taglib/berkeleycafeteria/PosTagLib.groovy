@@ -8,7 +8,7 @@ class PosTagLib {
 	 * Renders all CafeteriaOrders for the cashier.
 	 */
 	def orders = { attrs, body ->
-		out << orderTag.getOrdersString(orders:attrs.orders, addActionButtons:attrs.addActionButtons, template:"/pos/templates/order")
+		out << orderTag.getOrdersString(orders:attrs.orders, addActionButtons:attrs.addActionButtons, template:"/order/templates/order")
 	}
 	
 	/**

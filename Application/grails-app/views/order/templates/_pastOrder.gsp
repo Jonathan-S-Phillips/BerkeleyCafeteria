@@ -3,7 +3,7 @@
 		<g:formatDate format="MM/dd/yyyy h:mm a" date="${order.pickupTime}"/>
 	</td>
 	<td>
-		<applicationTag:listMenuItems order="${order}"/>
+		<orderTag:listMenuItems order="${order}"/>
 	</td>
 	<td>
 		<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>

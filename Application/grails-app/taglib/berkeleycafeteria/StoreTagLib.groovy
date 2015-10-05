@@ -71,7 +71,7 @@ class StoreTagLib {
 	 * Renders the past CafeteriaOrders for a particular user.
 	 */
 	def pastOrders = { attrs, body ->
-		out << orderTag.getOrdersString(orders:attrs.orders, addActionButtons:attrs.addActionButtons, template:"/store/templates/pastOrder")
+		out << orderTag.getOrdersString(orders:attrs.orders, addActionButtons:attrs.addActionButtons, template:"/order/templates/pastOrder")
 	}
 	
 	/**
