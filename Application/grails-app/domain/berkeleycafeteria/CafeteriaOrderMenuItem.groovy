@@ -20,6 +20,7 @@ class CafeteriaOrderMenuItem {
 	
 	/* Any constraints when saving the database object are defined below. */
     static constraints = {
+		quantity min:1
     }
 	
 	//---Static Methods-----------------------------------------------------------
@@ -59,5 +60,17 @@ class CafeteriaOrderMenuItem {
 		order?.removeFromCafeteriaOrderMenuItems(comi)
 		menuItem?.removeFromCafeteriaOrderMenuItems(comi)
 		comi.delete()
+	}
+	
+	//---Public Methods-----------------------------------------------------------
+	
+	/**
+	 * Updates the quantity for this CafeteriaOrderMenuItem.
+	 *
+	 * @param quantity - The new quantity for the MenuItem in the CafeteriaOrder.
+	 */
+	public void updateQuantity(int quantity) {
+		this.quantity = quantity
+		this.cafeteriaOrder.save(flush:true)
 	}
 }

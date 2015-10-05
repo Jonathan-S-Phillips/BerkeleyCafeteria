@@ -1,5 +1,7 @@
 package berkeleycafeteria
 
+import groovy.json.JsonBuilder
+
 /**
  * The StoreController which handles the majority of the actions in the application.
  * 
@@ -61,7 +63,7 @@ class StoreController {
 	def displayCart() {
 		User user = User.get(session.userId)
 		if(user) {
-			CafeteriaOrder order = cafeteriaOrderService.findOrCreateCafeteriaOrder(user)
+			CafeteriaOrder order = CafeteriaOrder.findOrCreateCafeteriaOrder(user)
 			return [order:order]
 		}
 		else {
@@ -112,24 +114,6 @@ class StoreController {
 	}
 	
 	/**
-	 * Displays the POS system for the cafeteria. The POS system should only be displayed to non-student
-	 * Users. If a Student or anyone else tries to access this page, they should be redirected to the
-	 * main index page.
-	 */
-	def pos() {
-		User user = User.get(session.userId)
-		if(user && !user.isStudent) {
-			List<CafeteriaOrder> outstanding = CafeteriaOrder.findAllByIsCompleteAndStatus(true, "Waiting Pickup")
-			List<CafeteriaOrder> completed = CafeteriaOrder.findAllByIsCompleteAndStatus(true, "Picked Up")
-			List<CafeteriaOrder> missed = CafeteriaOrder.findAllByIsCompleteAndStatus(true, "Missed")
-			return [outstanding:outstanding, completed:completed, missed:missed]
-		}
-		else {
-			redirect(controller:"session", action:"index")
-		}
-	}
-	
-	/**
 	 * Removes the MenuItem with the given ID from the latest CafeteriaOrder.
 	 */
 	def removeFromCart() {
@@ -169,23 +153,6 @@ class StoreController {
 	def show() {
 		Store store = Store.get(params.id)
 		return [store:store]
-	}
-	
-	/**
-	 * Updates the status for the given CafeteriaOrder. This is a function for non-students only, so
-	 * we need to check that the current User has the right permissions before performing any actions.
-	 */
-	def updateOrderStatus() {
-		User user = User.get(session.userId)
-		if(user && !user.isStudent) {
-			CafeteriaOrder order = CafeteriaOrder.get(params.id)
-			cafeteriaOrderService.updateOrderStatus(order, params.status)
-			flash.success = "Order updated successfully"
-			redirect(action:"pos")
-		}
-		else {
-			redirect(controller:"session", action:"index")
-		}
 	}
 	
 	/**

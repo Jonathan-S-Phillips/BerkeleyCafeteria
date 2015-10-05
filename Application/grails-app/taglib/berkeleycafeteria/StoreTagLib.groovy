@@ -21,21 +21,6 @@ class StoreTagLib {
 	}
 	
 	/**
-	 * Renders a list of the given MenuItems. This is used in either the Past Orders or POS pages.
-	 */
-	def listMenuItems = { attrs, body ->
-		String string = ""
-		List<CafeteriaOrderMenuItem> comis = attrs.order.cafeteriaOrderMenuItems.sort{ a,b ->
-			a.menuItem.store.name <=> b.menuItem.store.name ?: a.menuItem.name <=> b.menuItem.name
-		}
-		for(CafeteriaOrderMenuItem comi in comis) {
-			string += comi.quantity + " x "
-			string += comi.menuItem.name + "<br/>"
-		}
-		out << string
-	}
-	
-	/**
 	 * Renders all of the MenuItems given MenuItems in a list.
 	 */
 	def menuItems = { attrs, body ->
@@ -76,35 +61,17 @@ class StoreTagLib {
 	}
 	
 	/**
-	 * Renders the Actions column on either the Past Order or POS page.
-	 */
-	def orderActionsHeader = { attrs, body ->
-		if(attrs.addActionsHeader) {
-			out << "<th data-defaultsort='disabled'>Actions</th>"
-		}
-	}
-	
-	/**
-	 * Renders the Cashier action buttons for a CafeteriaOrder.
+	 * Renders the student action buttons for a CafeteriaOrder.
 	 */
 	def orderActions = { attrs, body ->
-		if(attrs.addActionButtons) {
-			out << g.render(template:"/store/templates/cashierActionButtons", model:[order:attrs.order])
-		}
+		out << orderTag.orderActions(order:attrs.order, addActionButtons:attrs.addActionButtons, template:"/store/templates/studentActionButtons")
 	}
 	
 	/**
 	 * Renders the past CafeteriaOrders for a particular user.
 	 */
 	def pastOrders = { attrs, body ->
-		out << getOrdersString(attrs.orders, attrs.addActionButtons, "student")
-	}
-	
-	/**
-	 * Renders all CafeteriaOrders for the cashier.
-	 */
-	def orders = { attrs, body ->
-		out << getOrdersString(attrs.orders, attrs.addActionButtons, "cashier")
+		out << orderTag.getOrdersString(orders:attrs.orders, addActionButtons:attrs.addActionButtons, template:"/store/templates/pastOrder")
 	}
 	
 	/**
@@ -134,46 +101,5 @@ class StoreTagLib {
 		}
 		string += "</ul>"
 		out << string
-	}
-	
-	/**
-	 * Renders the student action buttons for a CafeteriaOrder.
-	 */
-	def studentOrderActions = { attrs, body ->
-		if(attrs.addActionButtons) {
-			out << g.render(template:"/store/templates/studentActionButtons", model:[order:attrs.order])
-		}
-	}
-	
-	/**
-	 * Renders the appropriate template for the given list of CafeteriaOrders.
-	 * 
-	 * @param orders - The CafeteriaOrders to render.
-	 * @param addActionButtons - A boolean value indicating whether the action buttons should be rendered.
-	 * @param template - The template to use when rendering (cashier or student).
-	 * @return The List of CafeteriaOrders in nicely formatted HTML.
-	 */
-	private String getOrdersString(List<CafeteriaOrder> orders, boolean addActionButtons, String template) {
-		String string = ""
-		for(CafeteriaOrder order in orders) {
-			if(template.equals("cashier")) {
-				string += g.render(template:"/store/templates/order", model:[order:order, student:order.user,
-					addActionButtons:addActionButtons])
-			}
-			else {
-				string += g.render(template:"/store/templates/pastOrder", model:[order:order, student:order.user,
-					addActionButtons:addActionButtons])
-			}
-		}
-		
-		// If the string is empty, then add "No Orders to display" text to the view.
-		if(string.equals("")) {
-			int colspan = 4
-			if(addActionButtons) {
-				colspan = 5
-			}
-			string += "<tr><td colspan='" + colspan + "' style='text-align:center'>No Orders to display</td></tr>"
-		}
-		return string
 	}
 }

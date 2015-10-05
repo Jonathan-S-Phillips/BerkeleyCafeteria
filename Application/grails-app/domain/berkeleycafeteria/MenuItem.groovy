@@ -26,6 +26,25 @@ class MenuItem {
     static constraints = {
     }
 	
+	//---Public Static Methods----------------------------------------------------
+	
+	/**
+	 * Creates a MenuItem and adds it to the given Store if a MenuItem with the given name
+	 * is not already tied to the given Store.
+	 *
+	 * @param store - The Store to tie the MenuItem to.
+	 * @param name - The name of the MenuItem.
+	 * @param image - The name of the image file for the MenuItem.
+	 * @param price - The price of the MenuItem.
+	 */
+	public static void createMenuItem(Store store, String name, String image, double price) {
+		MenuItem menuItem = MenuItem.findByNameAndStore(name, store)
+		if(!menuItem) {
+			menuItem = new MenuItem(store:store, name:name, image:image, price:price)
+			menuItem.save(flush:true)
+		}
+	}
+	
 	//---Public Methods-----------------------------------------------------------
 	
 	/**

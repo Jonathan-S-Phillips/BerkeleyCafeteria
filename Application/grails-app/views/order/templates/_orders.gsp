@@ -5,10 +5,10 @@
 			<th>User Name</th>
 			<th  data-defaultsort="disabled">Items</th>
 			<th>Total</th>
-			<storeTag:orderActionsHeader addActionsHeader="${addActions}"/>
+			<orderTag:orderActionsHeader addActionsHeader="${addActions}"/>
 		</tr>
 	</thead>
 	<tbody>
-		<storeTag:orders orders="${orders}" addActionButtons="${addActions}"/>
+		<posTag:orders orders="${orders}" addActionButtons="${addActions}"/>
 	</tbody>
 </table>

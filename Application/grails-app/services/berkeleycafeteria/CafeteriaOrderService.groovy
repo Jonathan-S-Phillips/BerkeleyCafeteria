@@ -1,6 +1,9 @@
 package berkeleycafeteria
 
 import java.text.SimpleDateFormat
+import java.util.logging.Logger;
+import org.apache.commons.logging.LogFactory
+
 
 /**
  * The CafeteriaOrderService class handles all actions related to a CafeteriaOrder.
@@ -10,6 +13,8 @@ import java.text.SimpleDateFormat
  */
 class CafeteriaOrderService {
 
+	private static Logger log = Logger.getLogger(CafeteriaOrderService.class.getName())
+	
 	/**
 	 * Adds the given MenuItem to the latest CafeteriaOrder for the given User. If the given User does not
 	 * have a CafeteriaOrder that is not complete, then a new one will automatically be created.
@@ -20,10 +25,12 @@ class CafeteriaOrderService {
 	public void addMenuItemToOrder(User user, MenuItem menuItem, int quantity) {
 		CafeteriaOrder order = CafeteriaOrder.findByUserAndIsComplete(user, false)
 		if(order == null) {
-			order = findOrCreateCafeteriaOrder(user)
+			order = CafeteriaOrder.findOrCreateCafeteriaOrder(user)
 		}
 		menuItem.addToCafeteriaOrder(order, quantity)
-		order.save(flush:true)
+		if(!order.save(flush:true)) {
+			log.warning("Failed adding menut item to order")
+		}
 	}
 	
 	/**
@@ -36,39 +43,7 @@ class CafeteriaOrderService {
 	 */
 	public void completeOrder(User user, params) {
 		CafeteriaOrder order = CafeteriaOrder.findByUserAndIsComplete(user, false)
-		// Parse the date and time values returned from the front end. Since these are 2 separate fields they need to
-		// be combined before the full date can be parsed.
-		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a")
-		String timeString = params.date + " " + params.time
-		
-		// Update the necessary fields in the CafeteriaOrder to mark it as complete.
-		Date pickupTime = format.parse(timeString)
-		order.pickupTime = pickupTime
-		order.orderDate = new Date()
-		order.isComplete = true
-		order.status = "Waiting Pickup"
-		order.save(flush:true)
-	}
-	
-	/**
-	 * Finds or creates a new CafeteriaOrder for the given User.
-	 * 
-	 * @param user - The User to tie to the CafeteriaOrder.
-	 * @return The CafeteriaOrder that was just created.
-	 */
-    public CafeteriaOrder findOrCreateCafeteriaOrder(User user) {
-		CafeteriaOrder order = CafeteriaOrder.findByUserAndIsComplete(user, false)
-		
-		// If a CafeteriaOrdre is not found, then create one and tie it to the given User.
-		if(!order) {
-			order = new CafeteriaOrder()
-			order.user = user
-			if(order.save(flush:true)) {
-				user.addToOrders(order)
-				user.save(flush:true)
-			}
-		}
-		return order
+		order.setOrderComplete(params.date + " " + params.time)
 	}
 	
 	/**
@@ -88,6 +63,8 @@ class CafeteriaOrderService {
 			order.delete()
 			return "success"
 		}
+		
+		// Return a failure response in order to render an appropriate error message on the front end.
 		return "failure"
 	}
 	
@@ -110,7 +87,7 @@ class CafeteriaOrderService {
 	 * @param pastOrder - The past CafeteriaOrder to use.
 	 */
 	public CafeteriaOrder reOrder(User user, CafeteriaOrder pastOrder) {
-		CafeteriaOrder order = findOrCreateCafeteriaOrder(user)
+		CafeteriaOrder order = CafeteriaOrder.findOrCreateCafeteriaOrder(user)
 		for(CafeteriaOrderMenuItem comi in pastOrder.cafeteriaOrderMenuItems) {
 			addMenuItemToOrder(user, comi.menuItem, comi.quantity)
 		}
@@ -126,18 +103,6 @@ class CafeteriaOrderService {
 	 */
 	public void updateMenuItemQuantity(CafeteriaOrder order, MenuItem menuItem, int quantity) {
 		CafeteriaOrderMenuItem comi = CafeteriaOrderMenuItem.findByCafeteriaOrderAndMenuItem(order, menuItem)
-		comi.quantity = quantity
-		order.save(flush:true)
-	}
-	
-	/**
-	 * Updates the status of the CafeteriaOrder.
-	 * 
-	 * @param order - The CafeteriaOrder to be updated.
-	 * @param status - The status to set the CafeteriaOrder to.
-	 */
-	public void updateOrderStatus(CafeteriaOrder order, String status) {
-		order.status = status
-		order.save(flush:true)
+		comi.updateQuantity(quantity)
 	}
 }

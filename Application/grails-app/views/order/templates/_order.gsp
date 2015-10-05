@@ -4,10 +4,10 @@
 	</td>
 	<td>${student.name}</td>
 	<td>
-		<storeTag:listMenuItems order="${order}"/>
+		<applicationTag:listMenuItems order="${order}"/>
 	</td>
 	<td>
 		<g:formatNumber number="${order.price()}" type="currency" currencyCode="USD"/>
 	</td>
-	<storeTag:orderActions addActionButtons="${addActionButtons}" order="${order}"/>
+	<posTag:orderActions addActionButtons="${addActionButtons}" order="${order}"/>
 </tr>

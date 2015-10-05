@@ -25,4 +25,22 @@ class User {
 	/* Any constraints when saving the database object are defined below. */
     static constraints = {
     }
+	
+	/**
+	 * Creates a User if they do not already exist. This assumes that User's names are
+	 * unique, which is technically not a constraint right now.
+	 *
+	 * @param name The name of the User.
+	 * @param password The User's password.
+	 * @param isStudent Boolean value indicating whether the user is a Student.
+	 */
+	public static void createUser(String name, String password, boolean isStudent) {
+		User user = User.findByName(name)
+		
+		// Create the User if one is not found by the given name.
+		if(!user) {
+			user = new User(name:name, password:password, isStudent:isStudent)
+			user.save(flush:true)
+		}
+	}
 }

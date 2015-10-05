@@ -1,5 +1,7 @@
 package berkeleycafeteria
 
+import java.text.SimpleDateFormat
+
 /**
  * The CafeteriaOrder class defines an order created by a User of the system. A CafeteriaOrder can have
  * as many MenuItems tied to it as the User wants.
@@ -33,6 +35,29 @@ class CafeteriaOrder {
 		pickupTime(nullable:true)
 		status(inList:statuses)
     }
+	
+	//---Static Methods-----------------------------------------------------------
+	
+	/**
+	 * Finds or creates a new CafeteriaOrder for the given User.
+	 *
+	 * @param user - The User to tie to the CafeteriaOrder.
+	 * @return The CafeteriaOrder that was just created.
+	 */
+	public static CafeteriaOrder findOrCreateCafeteriaOrder(User user) {
+		CafeteriaOrder order = CafeteriaOrder.findByUserAndIsComplete(user, false)
+		
+		// If a CafeteriaOrdre is not found, then create one and tie it to the given User.
+		if(!order) {
+			order = new CafeteriaOrder()
+			order.user = user
+			if(order.save(flush:true)) {
+				user.addToOrders(order)
+				user.save(flush:true)
+			}
+		}
+		return order
+	}
 	
 	//---Public Methods-----------------------------------------------------------
 	
@@ -74,5 +99,31 @@ class CafeteriaOrder {
 		return this.cafeteriaOrderMenuItems?.sort{ a,b ->
 			a.menuItem.store.name <=> b.menuItem.store.name ?: a.menuItem.name <=> b.menuItem.name
 		}.collect{it.menuItem}
+	}
+	
+	/**
+	 * Completes this CafeteriaOrder by setting the necessary fields and updating its status.
+	 * 
+	 * @param dateTimeString The date and time to set for the pickupTime.
+	 */
+	public void setOrderComplete(String dateTimeString) {
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a")
+		Date pickupTime = format.parse(dateTimeString)
+		this.pickupTime = pickupTime
+		this.orderDate = new Date()
+		this.isComplete = true
+		
+		// Update the status of this CafeteriaOrder and save the changes.
+		this.updateOrderStatus("Waiting Pickup")
+	}
+	
+	/**
+	 * Updates the status of this CafeteriaOrder.
+	 *
+	 * @param status - The status to set the CafeteriaOrder to.
+	 */
+	public void updateOrderStatus(String status) {
+		this.status = status
+		this.save(flush:true)
 	}
 }

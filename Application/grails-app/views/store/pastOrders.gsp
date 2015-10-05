@@ -25,13 +25,13 @@
 							aria-controls="missed" role="tab" data-toggle="tab">Missed Orders</a></li>
 					</ul>
 					<div role="tabpanel" class="tab-pane active" id="outstanding">
-						<g:render template="/store/templates/pastOrders" model="['orders':outstanding, 'addActions':true]"/>
+						<g:render template="/order/templates/pastOrders" model="['orders':outstanding, 'addActions':true]"/>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="completed">
-						<g:render template="/store/templates/pastOrders" model="['orders':completed, 'addActions':true]"/>
+						<g:render template="/order/templates/pastOrders" model="['orders':completed, 'addActions':true]"/>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="missed">
-						<g:render template="/store/templates/pastOrders" model="['orders':missed, 'addActions':true]"/>
+						<g:render template="/order/templates/pastOrders" model="['orders':missed, 'addActions':true]"/>
 					</div>
 				</div>
 			</div>

@@ -26,4 +26,23 @@ class Store {
 	static mapping = {
 		menuItems cascade: "all-delete-orphan", sort:"name"
 	}
+	
+	//---Public Static Methods----------------------------------------------------
+	
+	/**
+	 * Finds or creates a Store with the given name.
+	 *
+	 * @param name - The name of the Store to find or create.
+	 * @return The Store that was found or created.
+	 */
+	public static Store findOrCreateStore(String name) {
+		Store store = Store.findByName(name)
+		
+		// If no Store is found, then create one with the given name.
+		if(!store) {
+			store = new Store(name:name)
+			store.save(flush:true)
+		}
+		return store
+	}
 }

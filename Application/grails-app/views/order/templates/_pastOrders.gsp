@@ -4,7 +4,7 @@
 			<th data-defaultsort="asc">Scheduled Pickup Time</th>
 			<th data-defaultsort="disabled">Items</th>
 			<th>Total</th>
-			<storeTag:orderActionsHeader addActionsHeader="${addActions}"/>
+			<orderTag:orderActionsHeader addActionsHeader="${addActions}"/>
 		</tr>
 	</thead>
 	<tbody>

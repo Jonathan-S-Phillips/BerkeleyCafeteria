@@ -54,7 +54,7 @@ class SessionController {
 			// If the current User is not a Student, then they should be redirected to the
 			// the POS system. Otherwise they should be redirected to the main index page.
 			if(!user.isStudent) {
-				redirect(controller:"store", action:"pos")
+				redirect(controller:"pos", action:"index")
 			}
 			else {	
 				redirect(action:"index")

@@ -1,11 +1,14 @@
 package berkeleycafeteria
 
+import java.util.List;
+
 /**
  * The ApplicationTagLib class defines custom tags useful for the entire application.
  * @author Jonathan
  *
  */
 class ApplicationTagLib {
+	
 	/* The namespace to use when writing tags in GSP pages. */
     static namespace = "applicationTag"
 	
@@ -14,7 +17,7 @@ class ApplicationTagLib {
 	 */
 	def error = { attrs, body ->
 		if(attrs.error) {
-			out << "<div class='alert alert-danger' role='alert'>" + attrs.error + "</div>"
+			out << "<div id='error' class='alert alert-danger' role='alert'>" + attrs.error + "</div>"
 		}
 	}
 	
@@ -23,7 +26,7 @@ class ApplicationTagLib {
 	 */
 	def success = { attrs, body ->
 		if(attrs.success) {
-			out << "<div class='alert alert-success' role='alert'>" + attrs.success + "</div>"
+			out << "<div id='success' class='alert alert-success' role='alert'>" + attrs.success + "</div>"
 		}
 	}
 }
